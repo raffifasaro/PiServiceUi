@@ -1,0 +1,12 @@
+# Host (PiServiceUi) runtime dependencies.
+# NOTE: uvicorn is intentionally plain (not uvicorn[standard]) to avoid the
+# uvloop/httptools/websockets C-extensions, which lack reliable ARMv6 wheels.
+# SSE works fine on the stock asyncio loop.
+fastapi>=0.115,<1.0
+uvicorn>=0.30,<1.0
+psutil>=6.0,<7.0
+passlib>=1.7,<2.0
+itsdangerous>=2.1,<3.0
+PyYAML>=6.0,<7.0
+pydantic-settings>=2.4,<3.0
+sse-starlette>=2.1,<3.0

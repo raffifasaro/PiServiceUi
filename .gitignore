@@ -1,0 +1,22 @@
+# Secrets / runtime state
+.env
+/data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Frontend
+/web/node_modules/
+/web/dist/
+
+# Per-service local env files (your bots' secrets) and any stray venvs
+services/*/.env
+services/**/.venv/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/

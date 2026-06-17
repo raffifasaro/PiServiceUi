@@ -1,0 +1,12 @@
+.git
+.gitignore
+data/
+web/node_modules/
+web/dist/
+**/__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+README.md
+*.md

@@ -1,0 +1,15 @@
+services:
+  host:
+    build: .
+    image: piserviceui:latest
+    container_name: piserviceui
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      # Drop bot folders into ./services on the host; they appear inside the container.
+      - ./services:/app/services
+      # venvs, logs and run-state persist across restarts/upgrades.
+      - ./data:/app/data

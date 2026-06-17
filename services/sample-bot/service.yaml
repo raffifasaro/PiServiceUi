@@ -1,0 +1,7 @@
+name: sample-bot
+description: "Heartbeat demo service — needs no Discord token, safe to start/stop."
+entrypoint: bot.py
+autostart: false
+restart: on-failure
+# requirements: requirements.txt   # uncomment if your bot has dependencies
+# env_file: .env                   # uncomment to load secrets into the process
