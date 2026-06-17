@@ -5,7 +5,9 @@
 ![Backend](https://img.shields.io/badge/backend-FastAPI-009688)
 ![Frontend](https://img.shields.io/badge/frontend-React%20%2B%20Vite-61dafb)
 
-A password-protected control panel for running small services on a Raspberry Pi Zero W. I built it to keep a couple of Python Discord bots alive on a Pi without SSHing in every time one fell over. Each service runs as a managed subprocess, and a web UI lets you start, stop, and restart them while watching CPU, memory, and uptime.
+A password-protected control panel for running small services on a Raspberry Pi Zero W.
+Provides a UI to manage the services so it isn't necessary to navigate SSH every time yout want to perform an action or monitor the service.
+Each service runs as a managed subprocess, with a web UI making it possible to start, stop, and restart them while watching CPU, memory, and uptime.
 
 ## What you get
 
