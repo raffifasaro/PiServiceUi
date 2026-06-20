@@ -9,12 +9,16 @@ COPY web/ ./
 RUN npm run build            # -> /web/dist
 
 # --- Stage 2: runtime on the Pi (ARMv6) -------------------------------------
-# Pin the ARMv6 variant explicitly; the multi-arch `python` manifest often
-# omits linux/arm/v6, which is what the Pi Zero W v1.1 needs.
-FROM arm32v6/python:3.11-slim-bullseye AS runtime
+# The official `python` manifest omits linux/arm/v6, and `arm32v6/python` only
+# ships Alpine (musl) tags -- which break piwheels' glibc wheels. Balena's
+# rpi-python is Debian Bullseye on glibc for the Pi Zero/1 (ARMv6), so piwheels
+# prebuilt wheels work.
+FROM balenalib/rpi-python:3.11.2-bullseye-run AS runtime
 
 # Prefer piwheels for prebuilt ARM wheels (both for host deps and service venvs).
-RUN printf '[global]\nextra-index-url=https://www.piwheels.org/simple\n' > /etc/pip.conf
+# prefer-binary: pick the newest version that has a wheel rather than a newer
+# sdist (avoids compiling Rust/C on the Pi, e.g. pydantic-core).
+RUN printf '[global]\nextra-index-url=https://www.piwheels.org/simple\nprefer-binary=true\n' > /etc/pip.conf
 
 # Uncomment if a bot needs to compile C/Rust extensions with no wheel available:
 # RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -22,7 +26,11 @@ RUN printf '[global]\nextra-index-url=https://www.piwheels.org/simple\n' > /etc/
 
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Balena's base ships pip 23.0, which rejects piwheels' PEP 658 metadata when the
+# dist name differs by hyphen/underscore (e.g. pydantic_core), forcing a source
+# build (Rust). A newer pip normalizes the name and uses the prebuilt wheel.
+RUN pip install --no-cache-dir --upgrade pip \
+ && pip install --no-cache-dir -r requirements.txt
 
 COPY app/ ./app
 COPY --from=web /web/dist ./web/dist

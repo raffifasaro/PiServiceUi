@@ -16,6 +16,10 @@ venv/
 services/*/.env
 services/**/.venv/
 
+# Built image artifacts (transfer to the Pi, don't commit)
+*.tar
+build.log
+
 # Editor / OS
 .DS_Store
 .vscode/
