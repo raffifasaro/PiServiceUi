@@ -11,9 +11,10 @@ RUN npm run build            # -> /web/dist
 # --- Stage 2: runtime on the Pi (ARMv6) -------------------------------------
 # The official `python` manifest omits linux/arm/v6, and `arm32v6/python` only
 # ships Alpine (musl) tags -- which break piwheels' glibc wheels. Balena's
-# rpi-python is Debian Bullseye on glibc for the Pi Zero/1 (ARMv6), so piwheels
-# prebuilt wheels work.
-FROM balenalib/rpi-python:3.11.2-bullseye-run AS runtime
+# rpi-python is Debian on glibc for the Pi Zero/1 (ARMv6). Must be *bookworm*:
+# piwheels builds cp311 wheels on Bookworm (GLIBC 2.36), so a bullseye base
+# (GLIBC 2.31) crashes at runtime with "GLIBC_2.34 not found" in pydantic_core.
+FROM balenalib/rpi-python:3.11-bookworm-run AS runtime
 
 # Prefer piwheels for prebuilt ARM wheels (both for host deps and service venvs).
 # prefer-binary: pick the newest version that has a wheel rather than a newer
