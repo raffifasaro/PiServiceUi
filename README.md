@@ -6,7 +6,7 @@
 ![Frontend](https://img.shields.io/badge/frontend-React%20%2B%20Vite-61dafb)
 
 A password-protected control panel for running small services on a Raspberry Pi Zero W.
-Provides a UI to manage the services so it isn't necessary to navigate SSH every time yout want to perform an action or monitor the service.
+Provides a UI to manage the services so it isn't necessary to navigate SSH every time you want to perform an action or monitor the service.
 Each service runs as a managed subprocess, with a web UI making it possible to start, stop, and restart them while watching CPU, memory, and uptime.
 
 <div align="center">
