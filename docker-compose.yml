@@ -6,9 +6,12 @@ services:
     restart: unless-stopped
     ports:
       - "8080:8080"
-    env_file:
-      - .env
     volumes:
+      # Mount .env read-only so pydantic-settings reads it directly. We deliberately
+      # do NOT use `env_file:` here: Compose runs ${VAR}/$VAR interpolation over
+      # env_file values, which mangles the $-delimited pbkdf2_sha256 password hash
+      # (UI_PASSWORD_HASH) and breaks login with a 401.
+      - ./.env:/app/.env:ro
       # Drop bot folders into ./services on the host; they appear inside the container.
       - ./services:/app/services
       # venvs, logs and run-state persist across restarts/upgrades.
