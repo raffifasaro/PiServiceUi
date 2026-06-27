@@ -9,6 +9,17 @@ A password-protected control panel for running small services on a Raspberry Pi 
 Provides a UI to manage the services so it isn't necessary to navigate SSH every time yout want to perform an action or monitor the service.
 Each service runs as a managed subprocess, with a web UI making it possible to start, stop, and restart them while watching CPU, memory, and uptime.
 
+<div align="center">
+
+<img src="https://github.com/user-attachments/assets/eeac1e91-6716-45ec-a6eb-8175f63840e1" alt="UI running on Pi Zero with metrics and the sample service">
+
+<p style="color: grey; font-style: italic;">
+UI with service manager running on Pi Zero with metrics and a sample service
+</p>
+
+</div>
+
+
 ## What you get
 
 - A sidebar with live host stats: CPU, memory, disk, temperature, load, and uptime.
